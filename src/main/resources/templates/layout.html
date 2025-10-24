@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(title, section)">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!-- Dynamic title -->
+    <title th:text="${title} ?: 'RecipeShare • Cook, Share, Smile'">RecipeShare</title>
+
+    <!-- Fonts & favicon -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    <link rel="icon" th:href="@{/img/favicon.png}" type="image/png">
+
+    <!-- Global styles (served from src/main/resources/static/css/style.css) -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+  </head>
+
+  <body th:classappend="${theme} ?: 'theme-glass'">
+    <!-- Top nav -->
+    <header th:replace="~{fragments/menu :: menu}"></header>
+
+    <!-- Page content from calling template -->
+    <main class="page">
+      <div th:insert="${section}"></div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <p>© <span th:text="${#dates.format(#dates.createNow(),'yyyy')}"></span>
+        <strong>RecipeShare</strong> • Cook, Share, Smile</p>
+    </footer>
+
+    <!-- Optional JS -->
+    <script defer th:src="@{/js/main.js}"></script>
+  </body>
+</html>

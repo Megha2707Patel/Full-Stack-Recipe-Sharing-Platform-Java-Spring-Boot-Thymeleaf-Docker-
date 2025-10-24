@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <th:block th:replace="~{layout :: layout(${recipe.title} + ' • RecipeShare', ~{::section})}">
+    <section class="detail">
+      <img class="detail-img" th:src="${recipe.imageUrl} ?: @{'/img/placeholder.jpg'}" alt="">
+      <div>
+        <h1 th:text="${recipe.title}">Title</h1>
+        <p class="muted">by <span th:text="${recipe.authorName} ?: 'Unknown'"></span></p>
+
+        <h3>Description</h3>
+        <p th:text="${recipe.description}"></p>
+
+        <h3>Ingredients</h3>
+        <ul>
+          <li th:each="line : ${#strings.listSplit(recipe.ingredients, '\n')}"
+              th:text="${line}"></li>
+        </ul>
+
+        <h3>Steps</h3>
+        <ol>
+          <li th:each="line : ${#strings.listSplit(recipe.steps, '\n')}"
+              th:text="${line}"></li>
+        </ol>
+
+        <div class="actions">
+          <a class="btn" th:href="@{|/recipes/${recipe.id}/edit|}">Edit</a>
+          <form th:action="@{|/recipes/${recipe.id}/delete|}" method="post" onsubmit="return confirm('Delete this recipe?')">
+            <button class="btn danger">Delete</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </th:block>
+</html>

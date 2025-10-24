@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <th:block th:replace="~{layout :: layout('My Profile • RecipeShare', ~{::section})}">
+    <section class="auth">
+      <div class="auth-card">
+        <h2>My Profile</h2>
+        <p class="muted">Update how you appear to others.</p>
+
+        <form th:action="@{/user/profile}" method="post" class="auth-form">
+          <label class="field">
+            <span>Display name</span>
+            <input name="displayName" th:value="${me.displayName}" autocomplete="name">
+          </label>
+
+          <label class="field span-2">
+            <span>Bio</span>
+            <textarea name="bio" rows="4" th:text="${me.bio}"></textarea>
+          </label>
+
+          <div class="auth-actions">
+            <button class="btn xl" type="submit">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </th:block>
+</html>

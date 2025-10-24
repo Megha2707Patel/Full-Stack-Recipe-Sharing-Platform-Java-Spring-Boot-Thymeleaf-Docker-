@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <th:block th:replace="~{layout :: layout('Home • RecipeShare', ~{::section})}">
+    <section>
+      <header class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+          <h1>Cook. Share. Smile.</h1>
+          <p>Discover mouth-watering recipes & spread the joy of food.</p>
+          <a class="btn xl" th:href="@{/recipes}">Explore Recipes</a>
+        </div>
+      </header>
+
+      <h2 class="section-title">Trending now</h2>
+      <div class="cards trending">
+        <article class="card" th:each="r : ${trending}">
+          <a th:href="@{|/recipes/${r.id}|}">
+            <div class="thumb" th:style="'background-image:url(' + (${r.imageUrl} ?: '/img/placeholder.jpg') + ')'"></div>
+            <div class="card-body">
+              <h3 th:text="${r.title}">Title</h3>
+              <p class="muted" th:text="${#strings.abbreviate(r.description, 110)}"></p>
+              <p class="tiny">by <span th:text="${r.authorName} ?: 'Unknown'"></span></p>
+            </div>
+          </a>
+        </article>
+      </div>
+    </section>
+  </th:block>
+</html>

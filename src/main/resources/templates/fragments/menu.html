@@ -1,0 +1,31 @@
+<nav th:fragment="menu" class="nav" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <a class="brand" th:href="@{/}">RecipeShare</a>
+
+  <form class="search" th:action="@{/recipes}" method="get">
+    <input type="text" name="q" placeholder="Search recipes…" th:value="${q}">
+    <button class="btn sm" type="submit">Search</button>
+  </form>
+
+  <div class="links">
+    <a th:href="@{/}">Home</a>
+    <a th:href="@{/recipes}">Explore</a>
+
+    <a th:href="@{/recipes/new}" class="btn sm">+ New</a>
+
+
+    <!-- Visible only to logged-in users -->
+    <a sec:authorize="isAuthenticated()" th:href="@{/recipes/new}" class="btn sm">+ New</a>
+
+    <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/panel}">Admin</a>
+
+    <!-- Auth/anon toggles -->
+    <a sec:authorize="isAnonymous()" th:href="@{/login}">Login</a>
+    <a sec:authorize="isAnonymous()" th:href="@{/register}" class="pill">Sign up</a>
+
+    <a sec:authorize="isAuthenticated()" th:href="@{/user/profile}">My Profile</a>
+    <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+      <button class="linklike" type="submit">Logout</button>
+    </form>
+  </div>
+</nav>
+

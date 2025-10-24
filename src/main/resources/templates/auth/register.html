@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <!-- Use the layout fragment (from templates/layout.html) -->
+  <th:block th:replace="~{layout :: layout('Sign up • RecipeShare', ~{::section})}">
+    <section class="auth">
+      <h2>Create your foodie account</h2>
+      <p class="muted">It’s free—start curating your delicious collection.</p>
+
+      <!-- Make sure your controller adds model.addAttribute("reg", new RegisterDto()) -->
+      <form th:action="@{/register}" th:object="${reg}" method="post" class="auth-form card">
+        <div class="grid three">
+
+          <label>Email
+            <input th:field="*{email}" type="email" required/>
+          </label>
+        </div>
+
+        <label>Password
+          <input th:field="*{password}" type="password" minlength="6" required/>
+        </label>
+
+        <div class="form-actions">
+          <button class="btn">Create account</button>
+          <span class="muted">Already have an account?
+            <a th:href="@{/login}">Log in</a>
+          </span>
+        </div>
+      </form>
+    </section>
+  </th:block>
+</html>

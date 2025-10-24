@@ -1,0 +1,16 @@
+<!-- templates/fragments/recipe-list.html -->
+<div th:fragment="recipeList(recipes)">
+  <div class="grid">
+    <article class="card" th:each="r : ${recipes}">
+      <a th:href="@{|/recipes/${r.id}|}">
+        <div class="thumb"
+             th:style="'background-image:url(' + (${r.imageUrl} ?: '/img/placeholder.jpg') + ')'"></div>
+        <div class="card-body">
+          <h3 th:text="${r.title}">Title</h3>
+          <p class="muted" th:text="${#strings.abbreviate(r.description, 120)}"></p>
+          <p class="tiny">by <span th:text="${r.authorName} ?: 'Unknown'"></span></p>
+        </div>
+      </a>
+    </article>
+  </div>
+</div>

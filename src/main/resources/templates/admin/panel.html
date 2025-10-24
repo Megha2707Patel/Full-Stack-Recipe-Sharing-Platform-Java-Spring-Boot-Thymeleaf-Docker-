@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <th:block th:replace="~{layout :: layout('Admin Panel • RecipeShare', ~{::section})}">
+    <section>
+      <h2>Users</h2>
+      <table class="table">
+        <thead>
+          <tr><th>ID</th><th>Email</th><th>Name</th><th>Roles</th></tr>
+        </thead>
+        <tbody>
+          <tr th:each="u : ${users}">
+            <td th:text="${u.id}"></td>
+            <td th:text="${u.email}"></td>
+            <td th:text="${u.displayName}"></td>
+            <td>
+              <span th:each="r : ${u.roles}" th:text="${r.name}" class="pill"></span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </th:block>
+</html>

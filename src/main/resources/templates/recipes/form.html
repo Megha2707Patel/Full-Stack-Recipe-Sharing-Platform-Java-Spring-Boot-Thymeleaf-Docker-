@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{layout :: layout(${mode} == 'edit' ? 'Edit Recipe • RecipeShare' : 'New Recipe • RecipeShare', ~{::section})}">
+  <section class="auth-wrap">
+    <div class="form-card">
+      <h2 class="form-title" th:text="${mode} == 'edit' ? 'Edit Recipe' : 'Create Recipe'">Create Recipe</h2>
+
+      <form th:action="${mode} == 'edit' ? @{|/recipes/${recipe.id}|} : @{/recipes}"
+            th:object="${recipe}" method="post" class="form-grid">
+        <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+        <div class="field">
+          <label>Title</label>
+          <input th:field="*{title}" type="text" placeholder="e.g. Creamy Paneer Tikka Wrap" required>
+        </div>
+
+        <div class="field">
+          <label>Image URL</label>
+          <input th:field="*{imageUrl}" type="url" placeholder="https://…">
+          <span class="helper">Paste a direct image URL (optional).</span>
+        </div>
+
+        <div class="field col-wide">
+          <label>Description</label>
+          <textarea th:field="*{description}" placeholder="A short, tasty description…" required></textarea>
+        </div>
+
+        <div class="field col-wide">
+          <label>Author</label>
+          <input th:field="*{authorName}" type="text" placeholder="Your display name">
+          <span class="helper">Leave blank to use your account email (or “Guest”).</span>
+        </div>
+
+        <!-- Optional: only include if your Recipe entity has these fields -->
+        <!--
+        <div class="field">
+          <label>Ingredients (one per line)</label>
+          <textarea th:field="*{ingredients}" placeholder="1 cup basmati rice&#10;½ tsp cumin&#10;…"></textarea>
+        </div>
+
+        <div class="field">
+          <label>Steps (one per line)</label>
+          <textarea th:field="*{steps}" placeholder="Rinse rice&#10;Soak 20 minutes&#10;…"></textarea>
+        </div>
+        -->
+
+        <div class="form-actions inline-2">
+          <a class="btn" th:href="@{/recipes}">Cancel</a>
+          <button class="btn primary" type="submit" th:text="${mode} == 'edit' ? 'Save Changes' : 'Save'">Save</button>
+        </div>
+      </form>
+    </div>
+  </section>
+</th:block>
+</html>
